@@ -14,10 +14,8 @@ class SearchCubit extends Cubit<SearchState> {
   Future SearchProducts({String? text}) async {
     emit(Searchloading());
 
-    final rsponse = await api.post(
-        Endpoint.productssearch,
-        headers: {'lang': 'en'},
-        data: {"text": text});
+    final rsponse = await api.post(Endpoint.productssearch,
+        headers: {'lang': 'en'}, data: {"text": text});
     rsponse.fold((failure) {
       emit(Searchfailure(error: failure.toString()));
     }, (rsponse) {
@@ -25,16 +23,14 @@ class SearchCubit extends Cubit<SearchState> {
           rsponse['data']['data'] == null ||
           rsponse['data']['data'].isEmpty) {
         emit(Searchfailure(error: 'no data search'));
-       
-      
       } else {
-         
         List<modelgetdata> data2 = [];
         for (var element in rsponse['data']['data']) {
           data2.add(modelgetdata.fromJson(element));
         }
-       
-          emit(searchloaded(data: data2));
+        print('object');
+
+        emit(searchloaded(data: data2));
       }
     });
   }
