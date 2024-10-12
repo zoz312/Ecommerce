@@ -50,10 +50,10 @@ class Apiimplement extends Apihome {
 
   @override
   Future<Either<Failrue, dynamic>> post(String path,
-      {Object? data, Map<String, dynamic>? parmetrs}) async {
+      {Object? data, Map<String, dynamic>? parmetrs,Map<String, dynamic>? headers}) async {
     try {
       final response =
-          await dio.post(path, data: data, queryParameters: parmetrs);
+          await dio.post(path, data: data, queryParameters: parmetrs,options: Options(headers: headers));
       return right(response.data);
     } on DioException catch (e) {
       return left(ServerFailure.fromDioError(e));

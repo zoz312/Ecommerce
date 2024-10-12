@@ -3,7 +3,8 @@ import 'package:ecommerce2/core/api/apihome.dart';
 import 'package:ecommerce2/core/api/apiimplement.dart';
 import 'package:ecommerce2/core/cache/cache_helper.dart';
 import 'package:ecommerce2/core/routes/myrouter.dart';
-import 'package:ecommerce2/feature/auth/view/mamger/cubit/user_cubit.dart';
+import 'package:ecommerce2/feature/auth/presention/mamger/cubit/user_cubit.dart';
+import 'package:ecommerce2/feature/home/presention/manger/Homecubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => UserCubit(Apiimplement(dio: Dio())),
+        ),
+          BlocProvider(
+          create: (context) => HomeCubit(Apiimplement(dio: Dio()))..getProducts(),
         ),
       ],
       child: MaterialApp.router(
